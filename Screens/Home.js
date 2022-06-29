@@ -44,7 +44,7 @@ import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 const Home = ({ navigation }) => {
 
     const [categories, setcategories] = useState([]);
-    console.log('categories11', categories);
+    // console.log('categories11', categories);
 
 
     useEffect(() => {
@@ -161,6 +161,8 @@ const Home = ({ navigation }) => {
 
     //   ];
 
+
+
     const des = "An OTP will be sent on given number for varification \n Standard message and data rates apply"
     return (<>
         <ScrollView>
@@ -264,20 +266,27 @@ const Home = ({ navigation }) => {
                         </View>
                     </View> */}
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', top: 25 }}>
-                        <FlatList
-                            numColumns={3}
-                            data={categories.allCatagoryList}
-                            renderItem={({ item }) => (
-                                <View style={{ backgroundColor: '#ffffff', borderRadius: 20, width: 102, height: 135, }}>
+                    <FlatList
+                        numColumns={3}
 
-                                    <Image source={{ uri:  item.image[0].image}} style={{ borderRadius: 20, left: 14, top: 10 }} />
-                                    <Text style={{ fontSize: 14, top: 18, left: 22, color: 'black' }}>{item.catagoryName}</Text>
+                        keyExtractor={(item) => item.id}
+                        data={categories.allCatagoryList}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                                    <View style={{ backgroundColor: '#ffffff', borderRadius: 20, width: 101, height: 140, margin: 10, marginLeft: 0, marginBottom: 0 }}>
+                                        <Image
+                                            style={{ width: '74%', height: '69%', borderRadius: 20, left: 14, top: 10}}
+                                            source={{ uri: item.image }}
+                                        />
+                                        {/* <Image source={{ uri: 'https://seekme-app.s3.ap-south-1.amazonaws.com/main-container/237c6ce0-7208-4ca1-a772-8225454acb0csolun.jpg' }} style={{ borderRadius: 20, left: 14, top: 10 }} /> */}
+                                        <Text style={{ fontSize: 14, top: 10, color: '#161616', textAlign: 'center' }}>{item.catagoryName}</Text>
+                                    </View>
                                 </View>
-                            )}
-                        />
-                        
-                        {/* <View style={{ backgroundColor: '#ffffff', borderRadius: 20, width: 102, height: 135, }}>
+                            </TouchableOpacity>
+                        )}
+                    />
+                    {/* <View style={{ backgroundColor: '#ffffff', borderRadius: 20, width: 102, height: 135, }}>
                             <Image source={require('../assets/hrepair.png')} style={{ borderRadius: 20, left: 14, top: 10 }} />
                             <Text style={{ fontSize: 14, top: 18, left: 27, color: 'black' }}> Home</Text>
                             <Text style={{ fontSize: 14, top: 15, left: 27, color: 'black' }}>Repairs</Text>
@@ -288,7 +297,7 @@ const Home = ({ navigation }) => {
                             <Text style={{ fontSize: 14, top: 18, left: 18, color: 'black' }}>AC Service</Text>
                             <Text style={{ fontSize: 14, top: 15, left: 20, color: 'black' }}>& Repairs</Text>
                         </View> */}
-                    </View>
+
 
                 </View>
 

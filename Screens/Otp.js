@@ -28,6 +28,35 @@ export default function App({ navigation }) {
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
   const [pin4, setPin4] = useState("");
+  console.log('pin',pin1);
+  console.log('pin',pin2);
+  console.log('pin',pin3);
+  console.log('pin',pin4);
+
+
+  const otpVerification = () =>{
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({
+      "code": pin
+    });
+    
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://13.127.119.21:5000/user/otp-verification", requestOptions)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    
+  }
+
+
 
 
 
