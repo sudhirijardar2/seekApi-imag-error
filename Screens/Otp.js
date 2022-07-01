@@ -24,43 +24,62 @@ export default function App({ navigation }) {
   const pin3Ref = useRef(null);
   const pin4Ref = useRef(null);
 
-  const [pin1, setPin1] = useState("");
-  const [pin2, setPin2] = useState("");
-  const [pin3, setPin3] = useState("");
-  const [pin4, setPin4] = useState("");
-  console.log('pin',pin1);
-  console.log('pin',pin2);
-  console.log('pin',pin3);
-  console.log('pin',pin4);
+  const [pin1, setPin1] = useState('');
+  const [pin2, setPin2] = useState('');
+  const [pin3, setPin3] = useState('');
+  const [pin4, setPin4] = useState('');
+  const _onChangeText = (val, setOpt, preRef = null, nextRef = null) => {
+    setOpt(val)
+    if (val.length) {
+      if (nextRef) {
+        nextRef.current.focus()
+      }
+    } else {
+      if (preRef) {
+        preRef.current.focus()
+      }
+    }
+  }
+  const pin = pin1 + pin2 + pin3 + pin4
+  console.log(pin)
 
 
-  const otpVerification = () =>{
+  const otpVerification = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    
+
     var raw = JSON.stringify({
-      "code": pin
+      "code": parseInt(pin)
     });
-    
+    console.log('2222222', raw);
+
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
       redirect: 'follow'
     };
-    
-    fetch("http://13.127.119.21:5000/user/otp-verification", requestOptions)
+
+    fetch("http://3.109.48.115:5500/user/verification", requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-    
+      .then(result => {
+        if(result.success){
+          navigation.navigate("Home")
+        }
+      }
+      )
+      .catch(error =>{
+        navigation.navigate("Otp")
+      });
+
+
   }
 
 
 
 
 
-  
+
 
   return (<>
 
@@ -83,17 +102,17 @@ export default function App({ navigation }) {
     </View>
 
     <View>
-      <Text style={{ fontSize: 24, fontFamily: 'Poppins-Regular', fontWeight: '700', color: 'black',textAlign:'center',top:150 }}>Enter Verification code</Text>
+      <Text style={{ fontSize: 24, fontFamily: 'Poppins-Regular', fontWeight: '700', color: 'black', textAlign: 'center', top: 150 }}>Enter Verification code</Text>
 
 
       <View style={{ marginTop: 180 }}>
-        <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular',textAlign:'center',fontWeight:'400' }}>we have sent you a Verification code on </Text>
-        <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', marginTop: 5,textAlign:'center',fontWeight:'500' }}>+91 6390168836</Text>
+        <Text style={{ fontSize: 12, fontFamily: 'Poppins-Regular', textAlign: 'center', fontWeight: '400' }}>we have sent you a Verification code on </Text>
+        <Text style={{ fontSize: 14, fontFamily: 'Poppins-Regular', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>+91 6390168836</Text>
 
 
       </View>
 
-     
+
 
 
       <View style={styles.TopView}>
@@ -102,13 +121,14 @@ export default function App({ navigation }) {
             ref={pin1Ref}
             keyboardType={'number-pad'}
             maxLength={1}
-            onChange={(pin1) => {
-              setPin1(pin1);
-              if (pin1 != "") {
-                pin2Ref.current.focus();
-              }
+            onChangeText={(text) => _onChangeText(text, setPin1, null, pin2Ref)}
+            // onChange={(pin1) => {
+            //   setPin1(pin1);
+            //   if (pin1 != "") {
+            //     pin2Ref.current.focus();
+            //   }
 
-            }}
+            // }}
             style={styles.TextInputText}
           />
 
@@ -119,12 +139,13 @@ export default function App({ navigation }) {
             ref={pin2Ref}
             keyboardType={'number-pad'}
             maxLength={1}
-            onChange={(pin2) => {
-              setPin2(pin2);
-              if (pin2 != "") {
-                pin3Ref.current.focus();
-              }
-            }}
+            onChangeText={(text) => _onChangeText(text, setPin2, pin2Ref, pin3Ref)}
+            // onChange={(pin2) => {
+            //   setPin2(pin2);
+            //   if (pin2 != "") {
+            //     pin3Ref.current.focus();
+            //   }
+            // }}
             style={styles.TextInputText}
           />
 
@@ -136,12 +157,13 @@ export default function App({ navigation }) {
 
             keyboardType={'number-pad'}
             maxLength={1}
-            onChange={(pin3) => {
-              setPin3(pin3);
-              if (pin3 != "") {
-                pin4Ref.current.focus();
-              }
-            }}
+            onChangeText={(text) => _onChangeText(text, setPin3, pin3Ref, pin4Ref)}
+            // onChange={(pin3) => {
+            //   setPin3(pin3);
+            //   if (pin3 != "") {
+            //     pin4Ref.current.focus();
+            //   }
+            // }}
             style={styles.TextInputText}
           />
 
@@ -152,9 +174,10 @@ export default function App({ navigation }) {
             ref={pin4Ref}
             keyboardType={'number-pad'}
             maxLength={1}
-            onChange={(pin4) => {
-              setPin4(pin4);
-            }}
+            onChangeText={(text) => _onChangeText(text, setPin4, null, null)}
+            // onChange={(pin4) => {
+            //   setPin4(pin4);
+            // }}
             style={styles.TextInputText}
           />
 
@@ -162,9 +185,9 @@ export default function App({ navigation }) {
 
       </View>
 
- 
 
-      
+
+
 
 
 
@@ -196,22 +219,23 @@ export default function App({ navigation }) {
 /> */}
 
 
-     
 
 
-  
+
+      {/* onPress={() => navigation.navigate("Home")} */}
+      {/* onPress={otpVerification} */}
 
     </View>
-    <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
-<View style={{marginHorizontal:20,marginTop:60}}>
-    <View style={{ alignItems: 'center', marginTop: 80, borderRadius: 12,  padding: 15, backgroundColor: '#5E17EB', borderColor: '#1589FF', width: '100%' }}>
-        <Text style={{ color: 'white', fontSize: 18, fontFamily: 'Poppins-Regular', fontWeight: '500' }}>Continue</Text>
+    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <View style={{ marginHorizontal: 20, marginTop: 60 }}>
+        <View style={{ alignItems: 'center', marginTop: 80, borderRadius: 12, padding: 15, backgroundColor: '#5E17EB', borderColor: '#1589FF', width: '100%' }}>
+          <Text style={{ color: 'white', fontSize: 18, fontFamily: 'Poppins-Regular', fontWeight: '500' }}>Continue</Text>
+        </View>
       </View>
-      </View>
-      </TouchableOpacity>
+    </TouchableOpacity>
 
 
-    
+
 
 
   </>);
@@ -241,27 +265,27 @@ const styles = StyleSheet.create({
   // },
 
   TextInputView: {
-    borderRadius:7,
+    borderRadius: 7,
     width: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    height:50,
+    height: 50,
     //backgroundColor:'#F1F6F7'
-    backgroundColor:'white',
-    borderColor:'#5E17EB',
-    margin:10,
-    borderWidth:1
+    backgroundColor: 'white',
+    borderColor: '#5E17EB',
+    margin: 10,
+    borderWidth: 1
 
 
   },
   TextInputText: {
     fontSize: 18,
-    color:'#A9A9A9'
+    color: '#A9A9A9'
   },
-  TopView:{
-    flexDirection:'row',
-    marginTop:30,
-    justifyContent:'center'
+  TopView: {
+    flexDirection: 'row',
+    marginTop: 30,
+    justifyContent: 'center'
   }
 
 });

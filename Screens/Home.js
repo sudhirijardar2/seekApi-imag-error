@@ -100,7 +100,7 @@ const Home = ({ navigation }) => {
     // const categories = [
     //     {
     //         id: 1,
-    //         title: 'Salon for Women',
+    //         title: 'Salon for Women',                      
 
     //     },
     //     {
@@ -268,11 +268,10 @@ const Home = ({ navigation }) => {
 
                     <FlatList
                         numColumns={3}
-
                         keyExtractor={(item) => item.id}
                         data={categories.allCatagoryList}
                         renderItem={({ item }) => (
-                            <TouchableOpacity >
+                            <TouchableOpacity onPress={() => navigation.navigate("Salonforwomen")}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                                     <View style={{ backgroundColor: '#ffffff', borderRadius: 20, width: 101, height: 140, margin: 10, marginLeft: 0, marginBottom: 0 }}>
                                         <Image
