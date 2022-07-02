@@ -44,7 +44,7 @@ const Salonforwomen = ({ navigation }) => {
 
 
   const [salonforwomen, setcategories] = useState([]);
-  console.log('salonforwomen111', salonforwomen);
+  // console.log('salonforwomen111', salonforwomen);
 
 
   useEffect(() => {
@@ -61,7 +61,33 @@ const Salonforwomen = ({ navigation }) => {
     })
   }, []);
 
+  const getItem = (name) => {
+ 
+    console.log('nameId', name);
+ 
+  }
 
+  const ItemRender = ({ name }) => (
+    <TouchableOpacity>
+      <View>
+      <Text onPress={()=> getItem(name)}>{name}</Text>
+    </View>
+    </TouchableOpacity>
+  );
+  
+  // const onclick_item = (key) =>{
+  //   console.log('key',key);
+  //   switch (key) {
+  //     case "Devin":
+  //       //navigate
+  //       break;
+  //     case "Jackson":
+  //       //navigate
+  //       break;
+  //     default:
+  //     //whatever you want
+  //   }
+  // }
   // const categories = [
   //   {
   //     id: 1,
@@ -99,25 +125,28 @@ const Salonforwomen = ({ navigation }) => {
     <ScrollView>
       <View style={{ marginHorizontal: 20 }}>
         <Head title="Salon for women" />
+ 
 
-
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 15 }}>
 
           <FlatList
-            style={{ height: 600 }}
-            data={salonforwomen.allsalonForWomenList}
+            style={{ height: 600, width: 330}}
+            data={salonforwomen.allsalonForWomenList} 
             //  horizontal={true}
             numColumns={2}
+            keyExtractor={(item) => item.key}
             renderItem={({ item }) => {
               return (
-                <View style={{ alignContent: 'center', alignItems: 'center' }}>
-                  <View style={{ borderRadius: 12, padding: 20, margin: -10, backgroundColor: '#FFFFFF' }}>
+                <View style={{ alignContent: 'center', alignItems: 'center', width : 160, height : 235, marginBottom: 5}}>
+                  <View style={{ borderRadius: 8, backgroundColor: '#FFFFFF', width : 150, height : 230}}>
                     <Image
-                     style={{ borderRadius: 12, borderWidth: 0.5, width : 130, height : 250}}
+                     style={{ borderRadius: 12, width : 135, height : 170, margin: 8}}
                      source={{ uri: item.image }}
                    />
                     
-                    <TouchableOpacity onPress={() => navigation.navigate("Facialforglow")}>
+                    {/* onPress={item => onclick_item(item._id)} */}
+                    <TouchableOpacity>
+                    <ItemRender name={item.salonForWomenName} />
                       <Text style={{ fontSize: 16, textAlign: 'center', color: '#161616', fontWeight: '500' }}>{item.salonForWomenName}</Text>
                     </TouchableOpacity>
                     <Text style={{ fontSize: 14, textAlign: 'center', color: '#5E17EB', fontWeight: '400' }}>{item.price}</Text>
