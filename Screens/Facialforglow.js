@@ -1,12 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+// /**
+//  * Sample React Native App
+//  * https://github.com/facebook/react-native
+//  *
+//  * @format
+//  * @flow strict-local
+//  */
 
- import React, { useState } from 'react';
+ import React, { useState, useEffect } from 'react';
  import {
    SafeAreaView,
    ScrollView,
@@ -38,43 +38,73 @@
  import Diamond from './Diamond'
  
  
- 
- 
- 
- const HelloWorldApp = ( { navigation }) => {
- 
-   
-  const [Popup, setPopup] = useState(false);
- 
- 
-   return (<>
-   <ScrollView>
-     <View >
-       <Head title="Facial for glow" />
+export default function Facialforglow(props) {
+
+  useEffect(() => {
+    const saloneForWomenId =  props.route.params.userId
+    console.log('getIds',saloneForWomenId);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "code": saloneForWomenId
+    });
+    console.log('2222222', raw);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://3.109.48.115:5500/admin/subSalonforWomenPost", requestOptions)
+    .then(response => response.json())
+    .then(success => console.log(success))
+    .catch(error => console.log('error', error));
+  }, [])
+
+  return (
+      <>
+      <ScrollView>
+      <View >
+        <Head title="Facial for glow" />
 
        
-       <Facialglow />
+        <Facialglow />
 
-    <View style={{marginHorizontal:20,right:20}}> 
- <TouchableOpacity onPress={()=>setPopup(true)}>
-       <View style={{ alignItems: 'center',  borderRadius: 12, borderWidth: 1, padding: 20, backgroundColor: '#D8D8D8', borderColor: '#D8D8D8', width: '100%',top:600,justifyContent:'center',marginHorizontal:20}}>
+     <View style={{marginHorizontal:20,right:20}}> 
+  <TouchableOpacity onPress={()=>setPopup(true)}>
+        <View style={{ alignItems: 'center',  borderRadius: 12, borderWidth: 1, padding: 20, backgroundColor: '#D8D8D8', borderColor: '#D8D8D8', width: '100%',top:600,justifyContent:'center',marginHorizontal:20}}>
      
-                 <Text style={{ color: '#858585', fontSize: 14, fontFamily: 'Poppins-Regular', fontWeight: '500' }}>Proceed</Text>
+                  <Text style={{ color: '#858585', fontSize: 14, fontFamily: 'Poppins-Regular', fontWeight: '500' }}>Proceed</Text>
              
-             </View>
+              </View>
 
-             </TouchableOpacity>
+              </TouchableOpacity>
 
-             </View>
-             <Diamond visible={Popup} closeCallback={()=>setPopup(false)} navigation={navigation}/>
+              </View>
+              {/* <Diamond visible={Popup} closeCallback={()=>setPopup(false)} navigation={navigation}/> */}
  
              
-     </View>
-     <View style={{height:1000}}></View>
-     </ScrollView>
-
-   </>
-   )
+      </View>
+      <View style={{height:1000}}></View>
+      </ScrollView>   
+      </>
+  );
+};
+ 
+ 
+//  const HelloWorldApp = ( {navigation} ) => {
+ 
   
- }
- export default HelloWorldApp;
+ 
+ 
+//    return (<>
+//    
+
+//    </>
+//    )
+  
+//  }
+//  export default HelloWorldApp;

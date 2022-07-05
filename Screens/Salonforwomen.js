@@ -42,10 +42,9 @@ import Head from '../Screens/Components/Header'
 
 const Salonforwomen = ({ navigation }) => {
 
-
   const [salonforwomen, setcategories] = useState([]);
-  // console.log('salonforwomen111', salonforwomen);
-
+  console.log('salonforwomen111', salonforwomen);
+  
 
   useEffect(() => {
 
@@ -60,20 +59,7 @@ const Salonforwomen = ({ navigation }) => {
       })
     })
   }, []);
-
-  const getItem = (name) => {
- 
-    console.log('nameId', name);
- 
-  }
-
-  const ItemRender = ({ name }) => (
-    <TouchableOpacity>
-      <View>
-      <Text onPress={()=> getItem(name)}>{name}</Text>
-    </View>
-    </TouchableOpacity>
-  );
+  
   
   // const onclick_item = (key) =>{
   //   console.log('key',key);
@@ -119,8 +105,10 @@ const Salonforwomen = ({ navigation }) => {
   //   },
 
   // ]
-
-
+  const handalOnPeress = (id) => {
+    console.log('key', id);
+}
+ 
   return (<>
     <ScrollView>
       <View style={{ marginHorizontal: 20 }}>
@@ -134,8 +122,10 @@ const Salonforwomen = ({ navigation }) => {
             data={salonforwomen.allsalonForWomenList} 
             //  horizontal={true}
             numColumns={2}
-            keyExtractor={(item) => item.key}
+            keyExtractor={(item) => item._id}
+            id={item=> item._id}
             renderItem={({ item }) => {
+              (<View key={item._id} />)
               return (
                 <View style={{ alignContent: 'center', alignItems: 'center', width : 160, height : 235, marginBottom: 5}}>
                   <View style={{ borderRadius: 8, backgroundColor: '#FFFFFF', width : 150, height : 230}}>
@@ -145,8 +135,7 @@ const Salonforwomen = ({ navigation }) => {
                    />
                     
                     {/* onPress={item => onclick_item(item._id)} */}
-                    <TouchableOpacity>
-                    <ItemRender name={item.salonForWomenName} />
+                    <TouchableOpacity onPress={handalOnPeress(item._id)}>
                       <Text style={{ fontSize: 16, textAlign: 'center', color: '#161616', fontWeight: '500' }}>{item.salonForWomenName}</Text>
                     </TouchableOpacity>
                     <Text style={{ fontSize: 14, textAlign: 'center', color: '#5E17EB', fontWeight: '400' }}>{item.price}</Text>
