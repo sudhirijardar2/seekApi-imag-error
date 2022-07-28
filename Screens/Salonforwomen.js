@@ -168,7 +168,7 @@ const Salonforwomen = (props) => {
             numColumns={2}
             renderItem={({ item }) => {
               return (
-                <View style={{ alignContent: 'center', alignItems: 'center', width : 160, height : 235, marginBottom: 5}}>
+                 <View style={{ alignContent: 'center', alignItems: 'center', width : 160, height : 235, marginBottom: 5}}>
                   <View style={{ borderRadius: 8, backgroundColor: '#FFFFFF', width : 150, height : 230}}>
                     <Image
                      style={{ borderRadius: 12, width : 135, height : 170, margin: 8}}
