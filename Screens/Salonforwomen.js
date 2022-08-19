@@ -26,7 +26,7 @@ import {
 import {
   Colors,
   DebugInstructions,
-  Header,
+
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
@@ -35,12 +35,13 @@ import Noti from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import Head from '../Screens/Components/Header'
+import Header from '../Screens/Components/Header';
 
 
 
 
 
-const Salonforwomen = (props) => {
+const Salonforwomen = ({props,navigation}) => {
 
   const [salonforwomen, setcategories] = useState([]);
   console.log('1111',salonforwomen)
@@ -52,7 +53,10 @@ const Salonforwomen = (props) => {
       redirect: 'follow'
     };
 
-    fetch("http://3.109.48.115:5500/admin//salonForWomenList", requestOptions).then((result) => {
+    fetch(
+      "http://15.206.166.219:5500/admin//salonForWomenList"
+      // "http://15.206.166.219:5500/user/getCategories"
+      , requestOptions).then((result) => {
       result.json().then((resp) => {
         setcategories(resp)
       })
@@ -123,7 +127,8 @@ const Salonforwomen = (props) => {
       redirect: 'follow'
     };
 
-    fetch("http://3.109.48.115:5500/admin/subSalonforWomenPost", requestOptions)
+    fetch("http://15.206.166.219:5500/admin/subSalonforWomenPost", requestOptions)
+
     .then(response => response.json())
     .then(success => {
       const tokan = success.token; 
@@ -137,7 +142,7 @@ const Salonforwomen = (props) => {
         redirect: 'follow'
     };
 
-    fetch("http://3.109.48.115:5500/admin/subSalonforWomenData", requestOptions).then((result) => {
+    fetch("http://15.206.166.219:5500/admin/subSalonforWomenData", requestOptions).then((result) => {
         result.json().then((resp) => {          
         const data = resp.response.subSalonforWomen;
         console.log('data',data);
@@ -156,7 +161,7 @@ const Salonforwomen = (props) => {
   return (<>
     <ScrollView>
       <View style={{ marginHorizontal: 20 }}>
-        <Head title="Salon for women" />
+        <Header navigation={navigation} title="Salon for women" />
  
 
         <View style={{ marginTop: 15 }}>

@@ -17,6 +17,7 @@ const Header = (props) => {
              <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 16, marginBottom: 13 }}>
                     <TouchableOpacity onPress={() => props.navigation.goBack()} style={{position:'absolute', top:8,  left:22,  }}>
                     <Icon name="left" size={20} color="#000000" />
+                    {/* <Icon name="left" size={20} color="#000000" /> */}
                     </TouchableOpacity>                        
                     <Text style={[{fontFamily: `${ Ifont }`}, styles.head]}>{props.title}</Text>
                 </View>

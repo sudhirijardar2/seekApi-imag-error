@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
             redirect: 'follow'
         };
 
-        fetch("http://3.109.48.115:5500/admin/catagoryList", requestOptions).then((result) => {
+        fetch("http://15.206.166.219:5500/admin/catagoryList", requestOptions).then((result) => {
             result.json().then((resp) => {
                 setcategories(resp)
             })
@@ -182,8 +182,8 @@ const Home = ({ navigation }) => {
                     <Location name='ios-location' size={20} color={'black'} style={{ left: 60, top: 8 }} />
                     <Text style={{ fontSize: 12, fontStyle: 'normal', fontWeight: '400', lineHeight: 22, left: 80, bottom: 12, color: '#161616' }}>Ayodhya Nagar,Bhopal</Text>
                 </View>
-                <TouchableOpacity >
-                    {/* onPress={() => navigation.navigate("HomeOneScroll")} */}
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate("HomeOneScroll")}>
                     <View style={{ borderRadius: 15, left: 280, width: '15%', alignItems: 'center', backgroundColor: '#F3F3F3', bottom: 52 }}>
                         <Noti name='notifications' color={'#5E17EB'} size={30} style={{ marginTop: 5 }} />
                         <Image
@@ -191,7 +191,7 @@ const Home = ({ navigation }) => {
                             source={require('../assets/bindi.png')}
                         />
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity >
                 <View style={{ flexDirection: 'row', borderRadius: 12, borderColor: '#E3E3E3', borderWidth: 1, top: -30 }}>
                     <Icon name='search' color={'#757575'} size={30} style={{ marginTop: 10 }} />
 
